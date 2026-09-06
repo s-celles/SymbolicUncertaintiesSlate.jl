@@ -194,7 +194,7 @@ Markdown.parse("```latex\n" * SymbolicUncertainties.latex(R_m) * "\n```")
 
 #%% md id=tex_note_md
 @md"""
-That output wraps itself in `\begin{equation}`, which is right for a document
+That output wraps itself in `\\begin{equation}`, which is right for a document
 and wrong for a notebook: an equation environment cannot be nested or set
 inline. The `tex` helper in this repository strips it back to a fragment, so
 the same expression can go in a markdown sentence or a `mathblock` row:

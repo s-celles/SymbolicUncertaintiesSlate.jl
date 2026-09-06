@@ -82,7 +82,7 @@ mathblock([measurement_tex(R_m; symbol = "R")])
 That second line is the GUM §5.1.2 equation (10) written out for `R = V/I`.
 It is algebraically the familiar relative-uncertainty form
 
-$$\frac{u_c(R)}{R} = \sqrt{\left(\frac{u(V)}{V}\right)^2 + \left(\frac{u(I)}{I}\right)^2}$$
+$$\\frac{u_c(R)}{R} = \\sqrt{\\left(\\frac{u(V)}{V}\\right)^2 + \\left(\\frac{u(I)}{I}\\right)^2}$$
 
 — the package just never divides through, because it has no reason to assume
 `V` and `I` are nonzero.
@@ -191,7 +191,7 @@ echart(
 The curve falls throughout, but not at one rate — and the change of rate is
 the whole content of the picture.
 
-$$u_c(R) = \sqrt{\underbrace{\left(\frac{u(V)}{I}\right)^2}_{\text{voltmeter}} + \underbrace{\left(\frac{V\,u(I)}{I^2}\right)^2}_{\text{ammeter}}}$$
+$$u_c(R) = \\sqrt{\\underbrace{\\left(\\frac{u(V)}{I}\\right)^2}_{\\text{voltmeter}} + \\underbrace{\\left(\\frac{V\,u(I)}{I^2}\\right)^2}_{\\text{ammeter}}}$$
 
 At low current the ammeter term dominates and `u_c` falls like `1/I²`. Once
 the voltmeter term takes over the fall slackens to `1/I`. The knee sits where

@@ -46,7 +46,7 @@ This notebook walks that last mile.
 
 The expanded uncertainty is §6.2 equation (18):
 
-$$U = k \cdot u_c(y)$$
+$$U = k \\cdot u_c(y)$$
 
 `k = 2` is the EA-4/02 default and what the GUM's own Annex H examples use.
 It is also an **assumption**: it presumes the output distribution is
@@ -95,7 +95,7 @@ propertynames(U2)
 When a Type A evaluation rests on few observations, `ν_eff` matters and §G.4
 equation (G.2b) is how you get it:
 
-$$\nu_{\text{eff}} = \frac{\left(\sum_i u_i^2\right)^2}{\sum_i u_i^4 / \nu_i}$$
+$$\\nu_{\\text{eff}} = \\frac{\\left(\\sum_i u_i^2\\right)^2}{\\sum_i u_i^4 / \\nu_i}$$
 """
 
 #%% code id=welch_demo

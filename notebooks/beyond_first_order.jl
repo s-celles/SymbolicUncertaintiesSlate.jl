@@ -70,8 +70,8 @@ mathblock([measurement_tex(R_m; symbol = "R")])
 The dimensionless indicator is the ratio of the neglected second-order term
 to the retained first-order one:
 
-$$\eta_i = \frac{\partial^2 f/\partial x_i^2 \cdot \sigma_i^2}
-                {2 \cdot \partial f/\partial x_i \cdot \sigma_i}$$
+$$\\eta_i = \\frac{\\partial^2 f/\\partial x_i^2 \\cdot \\sigma_i^2}
+                {2 \\cdot \\partial f/\\partial x_i \\cdot \\sigma_i}$$
 
 `|ηᵢ| ≪ 1` means the linear propagation is safe. Past `0.1` the package
 warns and points at Monte Carlo.
@@ -163,7 +163,7 @@ Whether the **estimate itself** needs a correction is a separate question, and
 JCGM 100:2008/Amd.1:2026 answers it: where the nonlinearity is significant,
 either use Monte Carlo or include
 
-$$\tfrac{1}{2} \sum_i \frac{\partial^2 f}{\partial x_i^2}\, u^2(x_i)$$
+$$\\tfrac{1}{2} \\sum_i \\frac{\\partial^2 f}{\\partial x_i^2}\, u^2(x_i)$$
 
 in the expression for `y`.
 """

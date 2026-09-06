@@ -37,7 +37,7 @@ around underneath it.
 @md"""
 ## 1. The model
 
-$$V_{out} = V_{in}\,\frac{R_2}{R_1 + R_2}$$
+$$V_{out} = V_{in}\,\\frac{R_2}{R_1 + R_2}$$
 
 Three inputs, non-linear in two of them. `propagate` evaluates the function
 symbolically on the input estimates, differentiates it with respect to each

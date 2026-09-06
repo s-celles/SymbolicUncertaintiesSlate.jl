@@ -71,9 +71,9 @@ Markdown.parse("""
 The combined uncertainty is quadratic in each `σᵢ`, so the solve is an
 algebraic split rather than a numerical root-find:
 
-$$u_c^2 = c_i^2 \sigma_i^2 + \sum_{j \neq i} (c_j \sigma_j)^2
-\quad \Longrightarrow \quad
-\sigma_i^\star = \sqrt{\frac{u_c^{\,2} - \sum_{j \neq i} (c_j \sigma_j)^2}{c_i^2}}$$
+$$u_c^2 = c_i^2 \\sigma_i^2 + \\sum_{j \\neq i} (c_j \\sigma_j)^2
+\\quad \\Longrightarrow \\quad
+\\sigma_i^\\star = \\sqrt{\\frac{u_c^{\,2} - \\sum_{j \\neq i} (c_j \\sigma_j)^2}{c_i^2}}$$
 
 No solver dependency, no `Nemo.jl`, and it works for every GUM-standard
 measurement model.
@@ -154,7 +154,7 @@ measurement can afford, spread across `N` inputs. How should it be divided?
 Lagrange gives the answer in closed form. Minimising `u_c` subject to
 `Σᵢ σᵢ = B` yields the **inverse-sensitivity-squared** weighting
 
-$$\sigma_i^\star = B \cdot \frac{1/c_i^2}{\sum_j 1/c_j^2}$$
+$$\\sigma_i^\\star = B \\cdot \\frac{1/c_i^2}{\\sum_j 1/c_j^2}$$
 
 whose stationarity condition is `cᵢ²σᵢ = cⱼ²σⱼ`: at the optimum, an extra
 euro spent on any input buys the same reduction in `u_c`.

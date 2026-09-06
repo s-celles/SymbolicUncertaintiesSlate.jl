@@ -2,7 +2,7 @@
 
 julia_version = "1.12.7"
 manifest_format = "2.0"
-project_hash = "e46dd17743edea38e37e7a97f7a20bd409491ab6"
+project_hash = "d184b378cbb8c19b4ddbd3393167200b347b78f6"
 
 [[deps.ADTypes]]
 deps = ["PrecompileTools"]
@@ -194,9 +194,9 @@ version = "0.2.14"
 
 [[deps.CommonWorldInvalidations]]
 deps = ["PrecompileTools"]
-git-tree-sha1 = "6600cd2b039cd07dd8043fd05b0ff2899d9da73b"
+git-tree-sha1 = "bc209b1a67dd03551fe305d72e88128764b89cf5"
 uuid = "f70d9fcc-98c5-4d4a-abd7-e4cdeebd8ca8"
-version = "1.2.1"
+version = "1.2.0"
 
 [[deps.Compat]]
 deps = ["TOML", "UUIDs"]
@@ -479,9 +479,9 @@ uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
 version = "0.1.5"
 
 [[deps.InlineStrings]]
-git-tree-sha1 = "06b65886c7577a3784d616e29f1302c2e36e389d"
+git-tree-sha1 = "8f3d257792a522b4601c24a577954b0a8cd7334d"
 uuid = "842dd82b-1e85-43dc-bf29-5d0ee9dffc48"
-version = "1.4.6"
+version = "1.4.5"
 
     [deps.InlineStrings.extensions]
     ArrowTypesExt = "ArrowTypes"
@@ -545,9 +545,9 @@ version = "1.8.0"
 
 [[deps.JSON]]
 deps = ["Dates", "Logging", "Parsers", "PrecompileTools", "StructUtils", "UUIDs", "Unicode"]
-git-tree-sha1 = "88352712893ec50bee3680605891eaf0e9ed6368"
+git-tree-sha1 = "c7345ab1a7ca4dc8a02c9f6510da0d9857bbe513"
 uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
-version = "1.8.0"
+version = "1.7.1"
 
     [deps.JSON.extensions]
     JSONArrowExt = ["ArrowTypes"]
@@ -574,9 +574,9 @@ version = "1.12.0"
 
 [[deps.KaimonSlate]]
 deps = ["Base64", "CodecZlib", "CodecZstd", "CommonMark", "Dates", "ExpressionExplorer", "FileWatching", "HTTP", "InteractiveUtils", "JSON", "Libdl", "LinearAlgebra", "Logging", "Markdown", "Match", "Mmap", "OteraEngine", "Pkg", "REPL", "SHA", "Serialization", "SlateExtensionsBase", "Sockets", "TOML", "Tachikoma", "Tar", "Typst_jll"]
-git-tree-sha1 = "b05430788d9f3247dcd15dafe5b37c7eeee6cca4"
+git-tree-sha1 = "acd531e0a51bf278ac66aade9ddf739af6c292c1"
 uuid = "f7b954f5-0334-4562-ac21-b005218ce1da"
-version = "1.4.9"
+version = "1.4.7"
 
 [[deps.LaTeXStrings]]
 git-tree-sha1 = "f88f3ccef05a6a72a0cf0ed417c8fd68530f4ab2"
@@ -807,10 +807,10 @@ weakdeps = ["StatsBase"]
     StatsBaseExt = "StatsBase"
 
 [[deps.Parsers]]
-deps = ["Dates", "PrecompileTools"]
-git-tree-sha1 = "663e8b48b789916221e0765393b289ca6c88f24e"
+deps = ["Dates", "PrecompileTools", "UUIDs"]
+git-tree-sha1 = "3de8f5e6e90ebfa8d6d1f86997d6cdcd6a912ff3"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "3.0.0"
+version = "2.8.7"
 
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "Random", "SHA", "TOML", "Tar", "UUIDs", "p7zip_jll"]
@@ -1175,7 +1175,7 @@ version = "1.2.1"
 
 [[deps.SymbolicUncertainties]]
 deps = ["PrecompileTools", "Printf", "Symbolics"]
-git-tree-sha1 = "4dea4c14489a7c564e9d5130391783fe3eb2f597"
+git-tree-sha1 = "dcc09581ce6c98f2e319e4a5c8712bb86340673e"
 repo-rev = "main"
 repo-url = "https://github.com/s-celles/SymbolicUncertainties.jl"
 uuid = "e1e776fa-b848-4db9-b655-ecac6e4889a3"

@@ -112,7 +112,7 @@ that stored only numbers would give the second answer to the first question.
 
 Power and current, measured on the same voltmeter and the same resistor:
 
-$$P = \frac{V^2}{R}, \qquad I = \frac{V}{R}, \qquad \frac{P}{I} = V$$
+$$P = \\frac{V^2}{R}, \\qquad I = \\frac{V}{R}, \\qquad \\frac{P}{I} = V$$
 
 Divide them and the answer must be exactly the voltage measurement you
 started from — `R` cancels, and `V` keeps its own uncertainty and nothing
