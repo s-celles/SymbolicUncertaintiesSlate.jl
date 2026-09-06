@@ -8,6 +8,11 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+env:
+  # Pkg clones via libgit2, which ignores git's `insteadOf` rewriting. This
+  # switches it to the git CLI so the credential rewrite in the auth step below
+  # actually applies — see that step for the full reasoning.
+  JULIA_PKG_USE_CLI_GIT: 'true'
 
 jobs:
   test:
@@ -34,6 +39,31 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - uses: julia-actions/cache@v2
+      # `[sources]` resolves SymbolicUncertainties from its repository, which is
+      # private. Pkg clones through libgit2, which does NOT implement git's
+      # `url.<base>.insteadOf` rewriting — hence `JULIA_PKG_USE_CLI_GIT`, which
+      # makes Pkg shell out to the git CLI so the rewrite below is honoured.
+      # Without both halves the clone falls back to an anonymous HTTPS fetch,
+      # prompts for a username, and aborts the job.
+      #
+      # The token is passed through the environment rather than interpolated
+      # into the command line, so it is never part of a rendered `run:` string.
+      - name: Grant read access to the private dependency
+        shell: bash
+        env:
+          DEP_TOKEN: ${{ secrets.PRIVATE_DEPS_TOKEN }}
+        run: |
+          if [ -z "$DEP_TOKEN" ]; then
+            echo "::error::PRIVATE_DEPS_TOKEN is not set. Pkg cannot clone the" \
+                 "private s-celles/SymbolicUncertainties.jl. Add a fine-grained" \
+                 "PAT with read access to that repository as the repository" \
+                 "secret PRIVATE_DEPS_TOKEN (and as a Dependabot secret, so" \
+                 "Dependabot's own pull requests resolve too)."
+            exit 1
+          fi
+          git config --global \
+            url."https://x-access-token:${DEP_TOKEN}@github.com/".insteadOf \
+            "https://github.com/"
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
