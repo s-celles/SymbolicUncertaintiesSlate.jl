@@ -113,7 +113,7 @@ jobs:
       # stale, possibly absent) entry from an earlier one. If the artifact is
       # missing this step fails outright instead of quietly proceeding with an
       # empty cache.
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: slate-cache
           path: docs/slate_cache
