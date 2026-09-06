@@ -71,13 +71,24 @@ jobs:
           # and GitHub strips the trailing one from a secret.
           printf '%s\n' "$DEP_KEY" > "$HOME/.ssh/private_deps"
           chmod 600 "$HOME/.ssh/private_deps"
-          ssh-keyscan -t ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+          # Every host-key type, not just ed25519: pinning one leaves
+          # OpenSSH nothing to negotiate if the server offers another.
+          ssh-keyscan github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
           # `IdentitiesOnly` so a runner's own agent identity cannot be offered
           # first and exhaust GitHub's auth attempts before this key is tried.
           git config --global core.sshCommand \
             "ssh -i $HOME/.ssh/private_deps -o IdentitiesOnly=yes"
           git config --global url."git@github.com:".insteadOf "https://github.com/"
+      # `git_cli: true` is not optional here, and its absence is silent.
+      # julia-buildpkg does `ENV["JULIA_PKG_USE_CLI_GIT"] = <input>`
+      # unconditionally, so its default of `false` OVERWRITES the workflow-level
+      # `true` above — Pkg falls back to libgit2, ignores the `insteadOf`
+      # rewrite, and the clone fails with a credential prompt or an libssh2
+      # "failed to set hostkey preference" error, neither of which mentions the
+      # setting that caused it.
       - uses: julia-actions/julia-buildpkg@v1
+        with:
+          git_cli: true
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
       - uses: codecov/codecov-action@v7

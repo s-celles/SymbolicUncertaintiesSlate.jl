@@ -76,7 +76,9 @@ jobs:
           # and GitHub strips the trailing one from a secret.
           printf '%s\n' "$DEP_KEY" > "$HOME/.ssh/private_deps"
           chmod 600 "$HOME/.ssh/private_deps"
-          ssh-keyscan -t ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+          # Every host-key type, not just ed25519: pinning one leaves
+          # OpenSSH nothing to negotiate if the server offers another.
+          ssh-keyscan github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
           # `IdentitiesOnly` so a runner's own agent identity cannot be offered
           # first and exhaust GitHub's auth attempts before this key is tried.
           git config --global core.sshCommand \
@@ -149,7 +151,9 @@ jobs:
           # and GitHub strips the trailing one from a secret.
           printf '%s\n' "$DEP_KEY" > "$HOME/.ssh/private_deps"
           chmod 600 "$HOME/.ssh/private_deps"
-          ssh-keyscan -t ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+          # Every host-key type, not just ed25519: pinning one leaves
+          # OpenSSH nothing to negotiate if the server offers another.
+          ssh-keyscan github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
           # `IdentitiesOnly` so a runner's own agent identity cannot be offered
           # first and exhaust GitHub's auth attempts before this key is tried.
           git config --global core.sshCommand \
