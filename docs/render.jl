@@ -29,7 +29,7 @@ if summary_path !== nothing
     end
 end
 
-if any(s -> !s.success, statuses)
+if any(s -> s.status !== :executed, statuses)
     println(stderr, "ERROR: Some notebooks failed to render successfully.")
     exit(1)
 end
