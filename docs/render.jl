@@ -28,3 +28,8 @@ if summary_path !== nothing
         write_github_step_summary(io, statuses)
     end
 end
+
+if any(s -> !s.success, statuses)
+    println(stderr, "ERROR: Some notebooks failed to render successfully.")
+    exit(1)
+end
