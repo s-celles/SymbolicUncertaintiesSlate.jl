@@ -39,7 +39,7 @@ jobs:
         with:
           version: ${{ env.JULIA_VERSION }}
       - uses: julia-actions/cache@v2
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: docs/slate_cache
           key: slate-${{ runner.os }}-${{ env.JULIA_VERSION }}-${{ hashFiles('notebooks/**/*.jl', 'notebooks/Project.toml', 'src/**/*.jl') }}
