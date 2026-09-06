@@ -188,11 +188,19 @@ echart(
 
 #%% md id=sweep_note_md
 @md"""
-The curve falls steeply and then flattens. At low current the `1/I` factor
-amplifies the voltmeter's uncertainty; past a point the ammeter's relative
-uncertainty takes over and nothing more is bought by raising the current.
-That crossover is a design decision, and it fell out of the algebra rather
-than out of a simulation.
+The curve falls throughout, but not at one rate — and the change of rate is
+the whole content of the picture.
+
+$$u_c(R) = \sqrt{\underbrace{\left(\frac{u(V)}{I}\right)^2}_{\text{voltmeter}} + \underbrace{\left(\frac{V\,u(I)}{I^2}\right)^2}_{\text{ammeter}}}$$
+
+At low current the ammeter term dominates and `u_c` falls like `1/I²`. Once
+the voltmeter term takes over the fall slackens to `1/I`. The knee sits where
+the two contribute equally, at `I = V·u(I)/u(V)` — 0.5 A at the default
+settings, which is why it lands in the middle of the sweep.
+
+Left of the knee, a better ammeter is the thing to buy. Right of it, a better
+ammeter buys almost nothing. That is a purchasing decision, and it fell out of
+the algebra rather than out of a simulation.
 """
 
 #%% md id=identity_md

@@ -271,10 +271,11 @@ already exceeds the target on its own, and the curve simply stops — there is
 no voltmeter, however good, that rescues it. Buying a better voltmeter is the
 wrong purchase order in that region.
 
-**It rises and then saturates.** Past the knee the requirement relaxes
-roughly linearly with current, because the `1/I` sensitivity is doing the
-work. Raising the test current is usually cheaper than buying a decade of
-voltmeter, and the algebra is what tells you where that trade sits.
+**Past the edge it rises, and settles into a straight line.** The closed form
+is `σ_V^⋆ = sqrt(I²·target² − V²·u(I)²/I²)`, so once the ammeter term has
+faded the requirement is simply `I · target` — relaxing in direct proportion
+to the test current. Raising the current is usually cheaper than buying a
+decade of voltmeter, and the algebra is what tells you the exchange rate.
 
 Push `u(I)` up with the second slider and watch the left edge march right:
 degrade the ammeter and whole ranges of operating point stop being usable.
