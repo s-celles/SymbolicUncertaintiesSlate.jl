@@ -10,6 +10,12 @@ from the upstream package, through its public API — `evaluate` for the
 dimensional walk, `build_evaluator` for the magnitudes, `uncertainty_budget`
 for the decomposition.
 
+## The module
+
+```@docs
+SymbolicUncertaintiesSlate
+```
+
 ## Units
 
 ```@docs
@@ -35,4 +41,5 @@ contribution_series
 tex
 mathblock
 measurement_tex
+markdown_table
 ```

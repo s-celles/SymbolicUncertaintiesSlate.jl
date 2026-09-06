@@ -123,9 +123,9 @@ alone = quiet() do
     infer_all_precisions(R_m, [V, I], [σV, σI], target_mag)
 end
 
-slate_table([
-    (input = "V", sigma = "σV", alone = tex(alone[σV])),
-    (input = "I", sigma = "σI", alone = tex(alone[σI])),
+markdown_table([
+    (input = "V", sigma = "σV", alone = "\$" * tex(alone[σV]) * "\$"),
+    (input = "I", sigma = "σI", alone = "\$" * tex(alone[σI]) * "\$"),
 ])
 
 #%% md id=required_md
@@ -180,7 +180,7 @@ B_total = 3.0us"mV"
 B = ustrip(uconvert(us"V", B_total))
 sym = budget_allocation(chain, [V1, V2, V3], [σV1, σV2, σV3], B)
 
-slate_table([
+markdown_table([
     (input = string(k), allocation_mV = round(1000 * Float64(Symbolics.value(v)); digits = 3))
     for (k, v) in sort(collect(sym); by = p -> string(first(p)))
 ])

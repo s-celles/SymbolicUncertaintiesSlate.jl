@@ -117,7 +117,7 @@ in the mixed partial `∂²(ab)/∂a∂b = 1`:
     check_linearity(*, [SymbolicMeasurement(a, σa), SymbolicMeasurement(b, σb)])
 end
 
-slate_table([(input = tex(k), η = tex(v)) for (k, v) in η_product])
+markdown_table([(input = "\$" * tex(k) * "\$", η = "\$" * tex(v) * "\$") for (k, v) in η_product])
 
 #%% md id=bound_md
 @md"""

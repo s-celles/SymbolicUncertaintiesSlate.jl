@@ -50,7 +50,9 @@ business carrying:
 - [`sweep`](@ref) — one input moved across a range, units kept on both traces;
 - [`budget_table`](@ref) — an EA-4/02 §7.3 budget a table widget can render;
 - [`contribution_series`](@ref) — the same budget as chart series;
-- [`tex`](@ref), [`mathblock`](@ref), [`measurement_tex`](@ref) — typesetting.
+- [`tex`](@ref), [`mathblock`](@ref), [`measurement_tex`](@ref) — typesetting;
+- [`markdown_table`](@ref) — a table that reads correctly both in the notebook
+  and on this site.
 
 See the [API reference](api.md).
 

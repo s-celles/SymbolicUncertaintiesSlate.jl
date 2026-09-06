@@ -91,3 +91,45 @@ function measurement_tex(m::SymbolicMeasurement; symbol::AbstractString = "y")
         " \\\\[6pt] "
     )
 end
+
+"""
+    markdown_table(rows) -> Markdown.MD
+
+Render a `Vector` of `NamedTuple`s as a Markdown table, taking the header
+from the keys.
+
+`slate_table` is the richer control — sortable, filterable, paginated, with
+in-cell bar and heat columns — and it is the right one for a large or
+explorable result. This is the right one for a small table that also has to
+read well **outside** the notebook: a Markdown table renders as a real table
+in Slate and in the published documentation alike, where a `SlateTable` falls
+back to a dump of its own struct (`upstream-bugs.md` UB-002).
+
+```julia
+markdown_table(budget_table(uncertainty_budget(Vout), divider))
+```
+
+A `|` inside a cell is escaped, so a value containing one cannot silently
+shift the rest of its row into the wrong columns.
+
+`Float64` cells are rounded to `sigdigits` significant digits. A table is a
+thing to read, and `30.703624733475472 %` of a variance claims seventeen
+digits of a quantity that is rarely known to two. Pass the value as a string
+if you need every digit.
+"""
+function markdown_table(rows; sigdigits::Int = 4)
+    isempty(rows) && return Markdown.parse("*(no rows)*")
+    columns = collect(keys(first(rows)))
+    header = "| " * join(string.(columns), " | ") * " |"
+    rule = "|" * repeat(" --- |", length(columns))
+    body = ["| " * join((_cell(getfield(r, c), sigdigits) for c in columns), " | ") *
+            " |"
+            for r in rows]
+    return Markdown.parse(join([header, rule, body...], "\n"))
+end
+
+# `|` ends a cell, and a newline ends the row; neither can survive verbatim.
+_cell(x, sigdigits::Int) = replace(string(x), "|" => "\\|", "\n" => " ")
+function _cell(x::AbstractFloat, sigdigits::Int)
+    isfinite(x) ? string(round(x; sigdigits = sigdigits)) : string(x)
+end

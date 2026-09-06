@@ -23,7 +23,7 @@ import SymbolicUncertainties
 using SymbolicUncertainties: SymbolicMeasurement, UncertaintyBudget, BudgetRow
 
 export unit_of, sweep, budget_table, contribution_series, tex, mathblock,
-       measurement_tex
+       measurement_tex, markdown_table
 
 include("numeric.jl")
 include("budget.jl")

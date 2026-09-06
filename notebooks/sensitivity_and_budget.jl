@@ -97,7 +97,14 @@ The EA-4/02 §7.3 columns are `u(xᵢ)`, `cᵢ`, the contribution
 
 #%% code id=budget_symbolic
 budget = uncertainty_budget(Vout)
-slate_table(budget_table(budget))
+
+# `budget_table` also carries a `relative` column — the share of the variance
+# — but its closed form for this model runs to a paragraph per row, so it is
+# left to the evaluated table below, where it is a number.
+markdown_table([
+    (quantity = r.quantity, u = r.u, c = r.c, contribution = r.contribution)
+    for r in budget_table(budget)
+])
 
 #%% md id=budget_num_md
 @md"""
@@ -106,8 +113,9 @@ slate_table(budget_table(budget))
 A budget is the one table whose columns are deliberately **heterogeneous in
 unit**: `u(R₁)` is in ohms, `∂Vout/∂R₁` is in volts per ohm, and the
 contribution is in volts, like the measurand. Stripping the units is exactly
-what makes a budget unreadable, so `budget_table` keeps them on every cell
-and hands over only the variance share as a bare number, for the bar.
+what makes a budget unreadable, so `budget_table` keeps them on every cell,
+and hands over only the variance share as a bare number — the one column
+that is a ratio and therefore has no unit to carry.
 """
 
 #%% code id=budget_numeric
@@ -117,11 +125,7 @@ divider = Dict(
     R2  => 3000.0us"Ω",  σR2  => 20.0us"Ω",
 )
 
-slate_table(
-    budget_table(budget, divider);
-    format = (percent = (kind = :fixed, digits = 1),),
-    viz = (percent = :bar,),
-)
+markdown_table(budget_table(budget, divider))
 
 #%% code id=budget_result
 evaluate(Vout, divider)
@@ -198,11 +202,7 @@ echart(
 )
 
 #%% code id=live_table
-slate_table(
-    budget_table(uncertainty_budget(Vout), live);
-    format = (percent = (kind = :fixed, digits = 1),),
-    viz = (percent = :bar,),
-)
+markdown_table(budget_table(uncertainty_budget(Vout), live))
 
 #%% md id=live_note_md
 @md"""

@@ -49,6 +49,10 @@ presentation helpers they are written against.
   first, with the unit of the magnitudes returned alongside them.
 - **`tex`**, **`mathblock`**, **`measurement_tex`** — inline LaTeX fragments,
   aligned display blocks, and the two-row form a measurement deserves.
+- **`markdown_table`** — a `Vector{NamedTuple}` as a Markdown table, which
+  renders as a real table both in Slate and on the published site where a
+  `slate_table` falls back to a dump of its own struct (`upstream-bugs.md`
+  UB-002). Float cells are rounded for display; a `|` in a cell is escaped.
 - Documentation built with
   [DocumenterSlate.jl](https://github.com/s-celles/DocumenterSlate.jl), split
   into a render job that executes notebooks without secrets in scope and a

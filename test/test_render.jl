@@ -64,3 +64,53 @@ end
     # Two aligned rows, so it drops straight into `mathblock`.
     @test occursin("\\\\", s)
 end
+
+@testitem "markdown_table renders named tuples as a GFM table" begin
+    using Markdown
+
+    md = markdown_table([
+        (quantity = "V", u = "0.01 V", percent = 50.0),
+        (quantity = "I", u = "0.001 A", percent = 50.0)
+    ])
+
+    @test md isa Markdown.MD
+    s = repr(MIME"text/plain"(), md)
+    # Header from the keys, one row per entry.
+    @test occursin("quantity", s)
+    @test occursin("percent", s)
+    @test occursin("0.01 V", s)
+    @test occursin("50.0", s)
+end
+
+@testitem "markdown_table escapes a pipe in a cell" begin
+    using Markdown
+
+    # A `|` inside a cell would otherwise start a new column and shift every
+    # value in the row one place left, silently.
+    md = markdown_table([(expr = "a | b", value = "1")])
+    s = repr(MIME"text/plain"(), md)
+
+    @test occursin("a", s)
+    @test !occursin("| a | b |", s)
+end
+
+@testitem "markdown_table handles an empty row set" begin
+    using Markdown
+
+    md = markdown_table(NamedTuple{(:a,), Tuple{Int}}[])
+    @test md isa Markdown.MD
+    @test occursin("no rows", lowercase(repr(MIME"text/plain"(), md)))
+end
+
+@testitem "markdown_table rounds float cells for display" begin
+    using Markdown
+
+    s = repr(MIME"text/plain"(), markdown_table([(share = 30.703624733475472,)]))
+
+    # Seventeen digits of a variance share is a claim nobody is making.
+    @test occursin("30.7", s)
+    @test !occursin("30.703624733475472", s)
+    # A caller who wants every digit passes a string, which is left alone.
+    s2 = repr(MIME"text/plain"(), markdown_table([(share = "30.703624733475472",)]))
+    @test occursin("30.703624733475472", s2)
+end

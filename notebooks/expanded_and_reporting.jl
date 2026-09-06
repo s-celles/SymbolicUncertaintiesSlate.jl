@@ -121,7 +121,7 @@ k_table = [
         end),
     ) for p in (0.68, 0.90, 0.95, 0.99)
 ]
-slate_table(k_table; format = (probability = (kind = :percent, digits = 0),))
+markdown_table(k_table)
 
 #%% md id=welch_note_md
 @md"""
@@ -261,7 +261,7 @@ against §7.8.
 
 #%% code id=findings_demo
 draft = certificate(report(99.98, 0.014; symbol = "R", unit = "Ω", k = 2); identifier = "DRAFT-1")
-slate_table([(clause = f.clause, requirement = f.requirement) for f in draft.findings])
+markdown_table([(clause = f.clause, requirement = f.requirement) for f in draft.findings])
 
 #%% md id=findings_note_md
 @md"""

@@ -218,8 +218,17 @@ or a filter.
 df = uncertainty_budget(R_m, [V, I], [σV, σI]; as = :dataframe)
 
 # A real `DataFrame` — join it, filter it, write it to CSV. Its cells are
-# `Symbolics.Num`s, rendered here so the closed forms are readable.
-DataFrame([name => tex.(df[!, name]) for name in names(df)])
+# `Symbolics.Num`s, so they are typeset here rather than printed; the
+# `relative` column is left out of the display only because the closed form
+# runs to a paragraph.
+markdown_table([
+    (
+        variable = "\$" * tex(r.variable) * "\$",
+        u = "\$" * tex(r.sigma) * "\$",
+        c = "\$" * tex(r.sensitivity) * "\$",
+        contribution = "\$" * tex(r.contribution) * "\$",
+    ) for r in eachrow(df)
+])
 
 #%% md id=df_note_md
 @md"""

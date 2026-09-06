@@ -208,11 +208,11 @@ cancels *exactly*:
 #%% code id=identity_demo
 x = 8.4 ± 0.7
 
-slate_table([
-    (expression = "x - x",   result = repr(x - x)),
-    (expression = "x / x",   result = repr(x / x)),
-    (expression = "x + x",   result = repr(x + x)),
-    (expression = "x^2 / x", result = repr(x^2 / x)),
+markdown_table([
+    (expression = "`x - x`",   result = repr(x - x)),
+    (expression = "`x / x`",   result = repr(x / x)),
+    (expression = "`x + x`",   result = repr(x + x)),
+    (expression = "`x^2 / x`", result = repr(x^2 / x)),
 ])
 
 #%% md id=identity_note_md

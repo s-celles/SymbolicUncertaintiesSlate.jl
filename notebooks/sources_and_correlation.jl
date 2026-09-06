@@ -56,12 +56,12 @@ v = V ± σV
 terms = SymbolicUncertainties.terms_of(v)
 srcs = SymbolicUncertainties.sources_of(v)
 
-slate_table([
+markdown_table([
     (
         source = string(srcs[id].name),
-        variable = srcs[id].variable === nothing ? "—" : tex(srcs[id].variable),
-        u = tex(srcs[id].u),
-        sensitivity = tex(c),
+        variable = srcs[id].variable === nothing ? "—" : "\$" * tex(srcs[id].variable) * "\$",
+        u = "\$" * tex(srcs[id].u) * "\$",
+        sensitivity = "\$" * tex(c) * "\$",
     ) for (id, c) in terms
 ])
 
