@@ -1,0 +1,6 @@
+{
+  "name": "expanded_and_reporting notebook inspection",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8765],
+  "remoteUser": "root"
+}

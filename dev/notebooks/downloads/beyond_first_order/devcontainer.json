@@ -1,0 +1,6 @@
+{
+  "name": "beyond_first_order notebook inspection",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8765],
+  "remoteUser": "root"
+}

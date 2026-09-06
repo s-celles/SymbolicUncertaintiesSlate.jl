@@ -1,0 +1,6 @@
+{
+  "name": "sensitivity_and_budget notebook inspection",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8765],
+  "remoteUser": "root"
+}

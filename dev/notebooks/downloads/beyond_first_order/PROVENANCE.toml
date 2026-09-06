@@ -1,0 +1,11 @@
+repository = "s-celles/SymbolicUncertaintiesSlate.jl"
+source_sha256 = "60e045722718713baf891635f1b9e0d3c16f68ef9f874c6c92195cb24440a0c7"
+julia_version = "1.12.7"
+git_sha = "2ad536f0a176899d7f9f2b7ff616a8cb14d26128"
+environment_kind = "external"
+run_id = "34045238660"
+build_timestamp = "2026-09-06T18:22:36+02:00"
+documenterslate_version = "0.1.0-DEV+f125914410811d3f8d2daed9a1830a50c56081c837bb5e60e265a7febc0807be"
+manifest_sha256 = "6e4dc4249c9d12d5d9000df98c579077df62209bf556986bdc4bdd56cc5e17e1"
+ci_produced = true
+kaimonslate_version = "1.4.7"
