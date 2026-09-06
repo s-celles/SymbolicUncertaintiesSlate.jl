@@ -25,9 +25,24 @@
 !/test/
 
 # 4. Inside those directories, exclude what is generated rather than authored.
-#    Manifests are resolved per machine; the notebook and docs environments
-#    both use `[sources]`, so nothing needs a committed Manifest.
+#    Manifests are ignored by default, with two deliberate exceptions below.
 Manifest.toml
+
+#    The notebook and docs environments MUST pin, for two separate reasons.
+#
+#    DocumenterSlate's cache fingerprint covers the resolved environment, and
+#    the build is split across two jobs: one renders the notebooks and fills
+#    the cache, the other consumes it with `execution = :never`. Let the two
+#    jobs resolve independently and they can land on different package
+#    versions, the fingerprints diverge, and the deploy job aborts with
+#    "requires a cache hit ... but none was found" — a message about caching
+#    that says nothing about the version drift behind it.
+#
+#    A sibling Manifest is also what keeps `[sources] path = ".."` resolvable:
+#    without one, DocumenterSlate copies the Project.toml alone into a temp
+#    directory and resolves there, where `..` is the temp directory's parent.
+!/docs/Manifest.toml
+!/notebooks/Manifest.toml
 /docs/build/
 /docs/slate_cache/
 /docs/src/notebooks/
