@@ -46,24 +46,37 @@ jobs:
       # Without both halves the clone falls back to an anonymous HTTPS fetch,
       # prompts for a username, and aborts the job.
       #
-      # The token is passed through the environment rather than interpolated
-      # into the command line, so it is never part of a rendered `run:` string.
+      # The credential is a deploy key on that one repository, read-only. That
+      # is narrower than any personal access token: a PAT is an account
+      # credential and carries whatever the account can reach, while this key
+      # opens exactly one repository and cannot write to it. Revoke it by
+      # deleting the key from s-celles/SymbolicUncertainties.jl's settings —
+      # nothing else is affected.
       - name: Grant read access to the private dependency
         shell: bash
         env:
-          DEP_TOKEN: ${{ secrets.PRIVATE_DEPS_TOKEN }}
+          DEP_KEY: ${{ secrets.PRIVATE_DEPS_SSH_KEY }}
         run: |
-          if [ -z "$DEP_TOKEN" ]; then
-            echo "::error::PRIVATE_DEPS_TOKEN is not set. Pkg cannot clone the" \
-                 "private s-celles/SymbolicUncertainties.jl. Add a fine-grained" \
-                 "PAT with read access to that repository as the repository" \
-                 "secret PRIVATE_DEPS_TOKEN (and as a Dependabot secret, so" \
+          if [ -z "$DEP_KEY" ]; then
+            echo "::error::PRIVATE_DEPS_SSH_KEY is not set. Pkg cannot clone" \
+                 "the private s-celles/SymbolicUncertainties.jl. Add the" \
+                 "read-only deploy key's private half as the repository secret" \
+                 "PRIVATE_DEPS_SSH_KEY (and as a Dependabot secret, so" \
                  "Dependabot's own pull requests resolve too)."
             exit 1
           fi
-          git config --global \
-            url."https://x-access-token:${DEP_TOKEN}@github.com/".insteadOf \
-            "https://github.com/"
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          # `printf` rather than `echo`: a private key must end in a newline,
+          # and GitHub strips the trailing one from a secret.
+          printf '%s\n' "$DEP_KEY" > "$HOME/.ssh/private_deps"
+          chmod 600 "$HOME/.ssh/private_deps"
+          ssh-keyscan -t ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+          # `IdentitiesOnly` so a runner's own agent identity cannot be offered
+          # first and exhaust GitHub's auth attempts before this key is tried.
+          git config --global core.sshCommand \
+            "ssh -i $HOME/.ssh/private_deps -o IdentitiesOnly=yes"
+          git config --global url."git@github.com:".insteadOf "https://github.com/"
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
