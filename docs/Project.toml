@@ -1,0 +1,21 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+DocumenterSlate = "da032acd-1f97-49c4-b071-4dc054a215b5"
+DynamicQuantities = "06fc5a27-2a28-4c7c-a15d-362465fb6821"
+KaimonSlate = "f7b954f5-0334-4562-ac21-b005218ce1da"
+Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
+SymbolicUncertainties = "e1e776fa-b848-4db9-b655-ecac6e4889a3"
+SymbolicUncertaintiesSlate = "d16c33b0-f68d-4fb0-8b2c-c6f9fa1e2643"
+
+# Neither DocumenterSlate nor SymbolicUncertainties is in the General registry,
+# and neither is this package. `[sources]` resolves all three without
+# committing a Manifest.
+[sources]
+DocumenterSlate = {url = "https://github.com/s-celles/DocumenterSlate.jl"}
+SymbolicUncertainties = {url = "https://github.com/s-celles/SymbolicUncertainties.jl"}
+SymbolicUncertaintiesSlate = {path = ".."}
+
+[compat]
+Documenter = "1.17"
+KaimonSlate = "1"
+julia = "1.12"

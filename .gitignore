@@ -1,0 +1,42 @@
+# Allow-list ("gitallow") pattern: ignore everything, then re-admit exactly what
+# belongs in the repository. A file that is not named below is not committed by
+# accident — the failure mode of a deny-list, where a new build artefact or a
+# stray credential slips in because nobody thought to exclude it.
+
+# 1. Ignore everything, including inside directories.
+/*
+!/.gitignore
+
+# 2. Re-admit the tracked top-level files.
+!/.JuliaFormatter.toml
+!/CHANGELOG.md
+!/justfile
+!/LICENSE.md
+!/Project.toml
+!/README.md
+!/SECURITY.md
+!/upstream-bugs.md
+
+# 3. Re-admit the tracked directories, then their contents.
+!/.github/
+!/docs/
+!/notebooks/
+!/src/
+!/test/
+
+# 4. Inside those directories, exclude what is generated rather than authored.
+#    Manifests are resolved per machine; the notebook and docs environments
+#    both use `[sources]`, so nothing needs a committed Manifest.
+Manifest.toml
+/docs/build/
+/docs/slate_cache/
+/docs/src/notebooks/
+/docs/src/llms.txt
+/docs/src/llms-full.txt
+
+# 5. Editor and OS noise, wherever it lands.
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/

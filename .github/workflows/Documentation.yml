@@ -1,0 +1,77 @@
+name: Documentation
+on:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+env:
+  # Single source of truth for both jobs. DocumenterSlate's cache key includes
+  # the running Julia version, so a mismatch between the two would make the
+  # render job's cache permanently unusable to the deploy job — surfacing as an
+  # unhelpful "cache miss" error rather than as the version drift it is.
+  JULIA_VERSION: '1.12'
+
+jobs:
+  # Executes notebook code. No secrets are in scope here, by design: this is the
+  # half of the build that runs arbitrary Julia from the notebooks.
+  render-notebooks:
+    name: Render notebooks
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ env.JULIA_VERSION }}
+      - uses: julia-actions/cache@v2
+      - uses: actions/cache@v4
+        with:
+          path: docs/slate_cache
+          key: slate-${{ runner.os }}-${{ env.JULIA_VERSION }}-${{ hashFiles('notebooks/**/*.jl', 'notebooks/Project.toml', 'src/**/*.jl') }}
+          restore-keys: slate-${{ runner.os }}-${{ env.JULIA_VERSION }}-
+      - name: Render notebooks
+        run: julia --project=docs docs/render.jl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: slate-cache
+          path: docs/slate_cache
+          retention-days: 1
+
+  # Never executes notebook code: docs/make.jl runs with `execution = :never`,
+  # where a cache miss raises instead of falling back to executing. This is the
+  # only job with DOCUMENTER_KEY in scope.
+  build-and-deploy:
+    name: Build and deploy
+    needs: render-notebooks
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: read
+      statuses: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ env.JULIA_VERSION }}
+      - uses: julia-actions/cache@v2
+      # An artifact rather than actions/cache here: this must be exactly what
+      # render-notebooks produced in *this* run, not a key-matched (possibly
+      # stale, possibly absent) entry from an earlier one. If the artifact is
+      # missing this step fails outright instead of quietly proceeding with an
+      # empty cache.
+      - uses: actions/download-artifact@v4
+        with:
+          name: slate-cache
+          path: docs/slate_cache
+      - name: Build and deploy
+        env:
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: julia --project=docs docs/make.jl

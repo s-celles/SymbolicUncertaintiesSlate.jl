@@ -1,0 +1,45 @@
+# Per-notebook metadata consumed by `resolve_notebook_meta`.
+#
+# The *title* is deliberately absent: it is resolved from the notebook itself
+# (a `title`-tagged cell → the first H1 → the filename). Only the fields
+# KaimonSlate has no opinion on are declared here.
+#
+# The order is the reading order — basic to advanced — and it is the whole
+# point of the set.
+
+# The five-minute introduction: ±, Ohm's law, units, and exact cancellation.
+[[notebook]]
+path = "uncertainty_intro.jl"
+order = 1
+
+# Sensitivity coefficients and the EA-4/02 §7.3 budget.
+[[notebook]]
+path = "sensitivity_and_budget.jl"
+order = 2
+
+# Source provenance, the write-it-once trap, and declared correlation.
+[[notebook]]
+path = "sources_and_correlation.jl"
+order = 3
+
+# Coverage factors, Welch-Satterthwaite, §7.2.2 and ISO/IEC 17025 §7.8.
+[[notebook]]
+path = "expanded_and_reporting.jl"
+order = 4
+
+# The model run backwards: inverse inference and budget allocation.
+[[notebook]]
+path = "protocol_design.jl"
+order = 5
+
+# Linearity, certified bounds, and the JCGM 101:2008 §8.2 cross-check.
+[[notebook]]
+path = "beyond_first_order.jl"
+order = 6
+
+# Compiled Julia, C for firmware, LaTeX, DataFrames. `show_code = true` is the
+# default, restated because on this page the code *is* the subject.
+[[notebook]]
+path = "codegen_and_deployment.jl"
+order = 7
+show_code = true

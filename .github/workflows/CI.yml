@@ -1,0 +1,66 @@
+name: CI
+on:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # `[sources]` in Project.toml needs Julia 1.11+, and SymbolicUncertainties
+        # is not registered — so 1.10 (LTS) cannot resolve this package at all.
+        version: ['1.11', '1.12']
+        os: [ubuntu-latest]
+        include:
+          - version: '1.12'
+            os: macOS-latest
+          - version: '1.12'
+            os: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.version }}
+      - uses: julia-actions/cache@v2
+      - uses: julia-actions/julia-buildpkg@v1
+      - uses: julia-actions/julia-runtest@v1
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v5
+        with:
+          files: lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+        continue-on-error: true
+
+  format:
+    name: Format check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.12'
+      - uses: julia-actions/cache@v2
+      - name: Check formatting
+        run: |
+          julia -e '
+            using Pkg; Pkg.add("JuliaFormatter")
+            using JuliaFormatter
+            format("src") && format("test") || begin
+              @error "Formatting check failed. Run `just format`."
+              write(stdout, read(`git diff`, String))
+              exit(1)
+            end'

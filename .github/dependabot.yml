@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # Julia packages are handled by CompatHelper (see CompatHelper.yml);
+  # Dependabot keeps the Actions themselves current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "github-actions"
