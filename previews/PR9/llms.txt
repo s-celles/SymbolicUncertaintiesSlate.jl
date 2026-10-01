@@ -1,0 +1,22 @@
+# SymbolicUncertaintiesSlate.jl
+> Interactive Kaimon Slate notebooks for SymbolicUncertainties.jl — purely symbolic propagation of measurement uncertainty under JCGM 100:2008 (GUM), from a first `±` to compiled C, with every quantity carrying its unit.
+
+## Documentation
+
+- [Home]()
+- [Getting started](getting-started/)
+- [The notebooks > Overview](notebooks/)
+- [The notebooks > Measurement Uncertainty, Symbolically](notebooks/uncertainty_intro/)
+- [The notebooks > Sensitivity & the Uncertainty Budget](notebooks/sensitivity_and_budget/)
+- [The notebooks > Sources & Correlation](notebooks/sources_and_correlation/)
+- [The notebooks > Expanded Uncertainty & Reporting](notebooks/expanded_and_reporting/)
+- [The notebooks > Protocol Design](notebooks/protocol_design/)
+- [The notebooks > Beyond First Order](notebooks/beyond_first_order/)
+- [The notebooks > Code Generation & Deployment](notebooks/codegen_and_deployment/)
+- [API reference](api/)
+
+## Optional
+
+- [Repository](https://github.com/s-celles/SymbolicUncertaintiesSlate.jl): the notebooks themselves, in `notebooks/`.
+- [SymbolicUncertainties.jl](https://s-celles.github.io/SymbolicUncertainties.jl/): the package these notebooks drive.
+- [Full text](llms-full.txt): every documentation page concatenated.
