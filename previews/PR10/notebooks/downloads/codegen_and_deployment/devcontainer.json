@@ -1,0 +1,6 @@
+{
+  "name": "codegen_and_deployment notebook inspection",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8765],
+  "remoteUser": "root"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "uncertainty_intro notebook inspection",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8765],
+  "remoteUser": "root"
+}

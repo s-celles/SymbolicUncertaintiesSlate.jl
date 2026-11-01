@@ -1,0 +1,6 @@
+{
+  "name": "sources_and_correlation notebook inspection",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [8765],
+  "remoteUser": "root"
+}
