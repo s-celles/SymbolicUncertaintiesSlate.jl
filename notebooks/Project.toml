@@ -11,14 +11,14 @@ SymbolicUncertainties = "e1e776fa-b848-4db9-b655-ecac6e4889a3"
 SymbolicUncertaintiesSlate = "d16c33b0-f68d-4fb0-8b2c-c6f9fa1e2643"
 Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
 
-[sources]
-SymbolicUncertaintiesSlate = {path = ".."}
+[sources.SymbolicUncertaintiesSlate]
+path = ".."
 
 [compat]
 DataFrames = "1"
 Distributions = "0.25"
 DynamicQuantities = "1"
-KaimonSlate = "1"
+KaimonSlate = "1, 2"
 Latexify = "0.16"
 MonteCarloMeasurements = "1"
 Symbolics = "7"
